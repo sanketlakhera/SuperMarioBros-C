@@ -10,38 +10,12 @@
 #include "Configuration.hpp"
 #include "Constants.hpp"
 
-uint8_t* romImage;
 static SDL_Window* window;
 static SDL_Renderer* renderer;
 static SDL_Texture* texture;
 static SDL_Texture* scanlineTexture;
 static SMBEngine* smbEngine = nullptr;
 static uint32_t renderBuffer[RENDER_WIDTH * RENDER_HEIGHT];
-
-/**
- * Load the Super Mario Bros. ROM image.
- */
-static bool loadRomImage()
-{
-    FILE* file = fopen(Configuration::getRomFileName().c_str(), "r");
-    if (file == NULL)
-    {
-        std::cout << "Failed to open the file \"" << Configuration::getRomFileName() << "\". Exiting.\n";
-        return false;
-    }
-
-    // Find the size of the file
-    fseek(file, 0L, SEEK_END);
-    size_t fileSize = ftell(file);
-    fseek(file, 0L, SEEK_SET);
-
-    // Read the entire file into a buffer
-    romImage = new uint8_t[fileSize];
-    fread(romImage, sizeof(uint8_t), fileSize, file);
-    fclose(file);
-
-    return true;
-}
 
 /**
  * SDL Audio callback function.
@@ -62,12 +36,6 @@ static bool initialize()
     // Load the configuration
     //
     Configuration::initialize(CONFIG_FILE_NAME);
-
-    // Load the SMB ROM image
-    if (!loadRomImage())
-    {
-        return false;
-    }
 
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
@@ -164,7 +132,7 @@ static void shutdown()
 
 static void mainLoop()
 {
-    SMBEngine engine(romImage);
+    SMBEngine engine;
     smbEngine = &engine;
     engine.reset();
 

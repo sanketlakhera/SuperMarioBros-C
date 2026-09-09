@@ -52,6 +52,5 @@ SDL_Texture* generateScanlineTexture(SDL_Renderer* renderer);
 const uint32_t* loadPalette(const std::string& fileName);
 
 extern const uint32_t* paletteRGB;
-extern uint8_t* romImage;
 
 #endif // VIDEO_HPP

@@ -35,7 +35,11 @@ This should create the executable `smbc` in the `build` directory.
 Running
 -------
 
-This requires an *unmodified* copy of the `Super Mario Bros. (JU) (PRG0) [!].nes` ROM to run. Without this, the game won't have any graphics, since the CHR data is used for rendering. By default, the program will look for this file in the current working directory, but this can also be configured in `smbc.conf`.
+No external ROM file is required! The 8KB CHR graphics data is embedded directly into the executable as C++ constants, allowing the game to run standalone immediately out of the box:
+
+```bash
+./build/smbc
+```
 
 Configuration
 -------------
@@ -67,11 +71,6 @@ The following is a list of all configurable options:
 
 - The desired frame rate, in frames per second. Note that on some systems it may be necessary to disable vsync (see video.vsync) in order to achieve a frame rate higher than 60 fps.
 - Default: 60
-
-#### rom_file
-
-- The path to the Super Mario Bros. ROM file. Can be either relative to the working directory or absolute.
-- Default: "Super Mario Bros. (JU) (PRG0) [!].nes"
 
 ### [video] options
 

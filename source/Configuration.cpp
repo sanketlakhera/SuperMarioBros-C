@@ -11,7 +11,6 @@ std::list<ConfigurationOption*> Configuration::configurationOptions = {
     &Configuration::frameRate,
     &Configuration::paletteFileName,
     &Configuration::renderScale,
-    &Configuration::romFileName,
     &Configuration::scanlinesEnabled,
     &Configuration::vsyncEnabled
 };
@@ -49,13 +48,6 @@ BasicConfigurationOption<std::string> Configuration::paletteFileName(
  */
 BasicConfigurationOption<int> Configuration::renderScale(
     "video.scale", 3
-);
-
-/**
- * Filename for the SMB ROM image.
- */
-BasicConfigurationOption<std::string> Configuration::romFileName(
-    "game.rom_file", "Super Mario Bros. (JU) (PRG0) [!].nes"
 );
 
 /**
@@ -129,11 +121,6 @@ const std::string& Configuration::getPaletteFileName()
 int Configuration::getRenderScale()
 {
     return renderScale.getValue();
-}
-
-const std::string& Configuration::getRomFileName()
-{
-    return romFileName.getValue();
 }
 
 bool Configuration::getScanlinesEnabled()

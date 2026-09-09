@@ -111,11 +111,6 @@ public:
     static const std::string& getPaletteFileName();
 
     /**
-     * Get the desired ROM file name.
-     */
-    static const std::string& getRomFileName();
-
-    /**
      * Get the desired render scale.
      */
     static int getRenderScale();
@@ -136,7 +131,6 @@ private:
     static BasicConfigurationOption<int> frameRate;
     static BasicConfigurationOption<std::string> paletteFileName;
     static BasicConfigurationOption<int> renderScale;
-    static BasicConfigurationOption<std::string> romFileName;
     static BasicConfigurationOption<bool> scanlinesEnabled;
     static BasicConfigurationOption<bool> vsyncEnabled;
 

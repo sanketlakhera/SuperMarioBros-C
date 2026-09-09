@@ -1,6 +1,7 @@
 #include "../SMB/SMBEngine.hpp"
 #include "../Util/Video.hpp"
 
+#include "CHRData.hpp"
 #include "PPU.hpp"
 
 static const uint8_t nametableMirrorLookup[][4] = {
@@ -125,7 +126,7 @@ uint8_t PPU::readByte(uint16_t address)
     if (address < 0x2000)
     {
         // CHR
-        return engine.getCHR()[address];
+        return CHRData::CHR_DATA[address];
     }
     else if (address < 0x3f00)
     {
@@ -138,9 +139,9 @@ uint8_t PPU::readByte(uint16_t address)
 
 uint8_t PPU::readCHR(int index)
 {
-    if (index < 0x2000)
+    if (index >= 0 && index < 0x2000)
     {
-        return engine.getCHR()[index];
+        return CHRData::CHR_DATA[index];
     }
     else
     {
@@ -196,8 +197,8 @@ void PPU::renderTile(uint32_t* buffer, int index, int xOffset, int yOffset)
     // Read the pixels of the tile
     for( int row = 0; row < 8; row++ )
     {
-        uint8_t plane1 = readCHR(tile * 16 + row);
-        uint8_t plane2 = readCHR(tile * 16 + row + 8);
+        uint8_t plane1 = CHRData::CHR_DATA[tile * 16 + row];
+        uint8_t plane2 = CHRData::CHR_DATA[tile * 16 + row + 8];
 
         for( int column = 0; column < 8; column++ )
         {
@@ -269,8 +270,8 @@ void PPU::render(uint32_t* buffer)
             // Copy pixels to the framebuffer
             for( int row = 0; row < 8; row++ )
             {
-                uint8_t plane1 = readCHR(tile * 16 + row);
-                uint8_t plane2 = readCHR(tile * 16 + row + 8);
+                uint8_t plane1 = CHRData::CHR_DATA[tile * 16 + row];
+                uint8_t plane2 = CHRData::CHR_DATA[tile * 16 + row + 8];
 
                 for( int column = 0; column < 8; column++ )
                 {
@@ -394,8 +395,8 @@ void PPU::render(uint32_t* buffer)
             // Copy pixels to the framebuffer
             for( int row = 0; row < 8; row++ )
             {
-                uint8_t plane1 = readCHR(tile * 16 + row);
-                uint8_t plane2 = readCHR(tile * 16 + row + 8);
+                uint8_t plane1 = CHRData::CHR_DATA[tile * 16 + row];
+                uint8_t plane2 = CHRData::CHR_DATA[tile * 16 + row + 8];
 
                 for( int column = 0; column < 8; column++ )
                 {

@@ -23,10 +23,8 @@ class SMBEngine
 public:
     /**
      * Construct a new SMBEngine instance.
-     *
-     * @param romImage the data from the Super Mario Bros. ROM image.
      */
-    SMBEngine(uint8_t* romImage);
+    SMBEngine();
 
     ~SMBEngine();
 
@@ -83,7 +81,6 @@ private:
     MemoryAccess s;              /**< Wrapper for S register. */
     uint8_t dataStorage[0x8000]; /**< 32kb of storage for constant data. */
     uint8_t ram[0x800];          /**< 2kb of RAM. */
-    uint8_t* chr;                /**< Pointer to CHR data from the ROM. */
     int returnIndexStack[100];   /**< Stack for managing JSR subroutines. */
     int returnIndexStackTop;     /**< Current index of the top of the call stack. */
 
@@ -109,11 +106,6 @@ private:
      * BIT instruction.
      */
     void bit(uint8_t value);
-
-    /**
-     * Get CHR data from the ROM.
-     */
-    uint8_t* getCHR();
 
     /**
      * Get a pointer to a byte in the address space.

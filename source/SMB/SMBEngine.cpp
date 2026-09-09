@@ -14,7 +14,7 @@
 // Public interface
 //---------------------------------------------------------------------
 
-SMBEngine::SMBEngine(uint8_t* romImage) :
+SMBEngine::SMBEngine() :
     a(*this, &registerA),
     x(*this, &registerX),
     y(*this, &registerY),
@@ -24,9 +24,6 @@ SMBEngine::SMBEngine(uint8_t* romImage) :
     ppu = new PPU(*this);
     controller1 = new Controller();
     controller2 = new Controller();
-
-    // CHR Location in ROM: Header (16 bytes) + 2 PRG pages (16k each)
-    chr = (romImage + 16 + (16384 * 2));
 
     returnIndexStackTop = 0;
 }
@@ -92,11 +89,6 @@ void SMBEngine::bit(uint8_t value)
 {
     n = (value & (1 << 7)) != 0;
     z = (registerA & value) == 0;
-}
-
-uint8_t* SMBEngine::getCHR()
-{
-    return chr;
 }
 
 uint8_t* SMBEngine::getDataPointer(uint16_t address)

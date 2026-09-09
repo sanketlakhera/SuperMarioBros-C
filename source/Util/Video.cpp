@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "../Constants.hpp"
+#include "../Emulation/CHRData.hpp"
 
 #include "Video.hpp"
 
@@ -66,8 +67,8 @@ void drawCHRTile(uint32_t* buffer, int xOffset, int yOffset, int tile, uint32_t 
     // Read the pixels of the tile
     for( int row = 0; row < 8; row++ )
     {
-        uint8_t plane1 = romImage[16 + 2 * 16384 + tile * 16 + row];
-        uint8_t plane2 = romImage[16 + 2 * 16384 + tile * 16 + row + 8];
+        uint8_t plane1 = CHRData::CHR_DATA[tile * 16 + row];
+        uint8_t plane2 = CHRData::CHR_DATA[tile * 16 + row + 8];
 
         for( int column = 0; column < 8; column++ )
         {
